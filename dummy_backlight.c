@@ -1,4 +1,3 @@
-#include <linux/delay.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/init.h>
@@ -7,8 +6,6 @@
 
 static int curr_intensity;
 static struct backlight_device *dummy_backlight_device;
-
-static bool module_initialized;
 
 static int set_intensity(struct backlight_device *bd)
 {
@@ -30,7 +27,7 @@ static const struct backlight_ops dummy_ops = {
 static int __init dummy_backlight_init(void)
 {
 	struct backlight_properties props;
-	const char *name = "DUMMY_BL";
+	const char *name = "dummy_backlight";
 
 	memset(&props, 0, sizeof(struct backlight_properties));
 	props.type = BACKLIGHT_RAW;
@@ -46,20 +43,13 @@ static int __init dummy_backlight_init(void)
 	dummy_backlight_device->props.brightness = 90;
 	backlight_update_status(dummy_backlight_device);
 
-	module_initialized = true;
 	return 0;
 }
 module_init(dummy_backlight_init);
 
 static void __exit dummy_backlight_exit(void)
 {
-	dummy_backlight_device->props.power = 0;
-	dummy_backlight_device->props.brightness = 0;
-	backlight_update_status(dummy_backlight_device);
-	ssleep(3);
 	backlight_device_unregister(dummy_backlight_device);
-
-	module_initialized = false;
 }
 module_exit(dummy_backlight_exit);
 
