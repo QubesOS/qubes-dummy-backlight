@@ -1,0 +1,46 @@
+%global module dummy_backlight
+
+Name: dummy-backlight
+Version: @VERSION@
+Release: @REL@
+Summary: Dummy backlight kernel module
+
+License: GPLv2+
+Source0: %{name}-%{version}.tar.gz
+Requires: dkms
+
+%description
+%{summary}.
+
+
+%prep
+%setup -q
+
+
+%install
+%make_install
+
+
+%files
+%defattr(-,root,root)
+/usr/src/%{module}-%{version}/Makefile
+/usr/src/%{module}-%{version}/%{module}.c
+/usr/src/%{module}-%{version}/dkms.conf
+
+
+%post
+dkms add -m %{module} -v %{version} --rpm_safe_upgrade
+if [ -e /lib/modules/$(uname -r)/build/include ]; then
+    dkms build -m %{module} -v %{version}
+    dkms install -m %{module} -v %{version}
+else
+    echo -e ""
+    echo -e "Cannot find kernel headers for this kernel."
+    echo -e "Skipping build and install stages..."
+fi
+
+%preun
+dkms remove -m %{module} -v %{version} --all --rpm_safe_upgrade
+
+%changelog
+@CHANGELOG@
