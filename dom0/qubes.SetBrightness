@@ -1,0 +1,20 @@
+#!/bin/bash
+
+brightness="$1"
+
+# brightness value is provided as purcentage of the max_brightness
+if [[ $brightness =~ ^[0-9]+$ ]] && [ "$brightness" -le 100 ]; then
+    backlight="$(ls -1 /sys/class/backlight/)"
+    if [ -n "$backlight" ]; then
+        sysfs_backlight="/sys/class/backlight/$backlight"
+        max_brightness="$(cat "$sysfs_backlight/max_brightness")"
+        new_brightness=$(( max_brightness * brightness / 100))
+        echo "$new_brightness" > "$sysfs_backlight/brightness"
+    else
+        echo "Cannot find any backlight provider"
+        exit 1
+    fi
+else
+    echo "Invalid brightness value"
+    exit 1
+fi

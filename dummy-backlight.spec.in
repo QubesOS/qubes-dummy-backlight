@@ -3,13 +3,38 @@
 Name: dummy-backlight
 Version: @VERSION@
 Release: @REL@
-Summary: Dummy backlight kernel module
+Summary: Dummy backlight
 
 License: GPLv2+
 Source0: %{name}-%{version}.tar.gz
 Requires: dkms
 
 %description
+%{summary}.
+
+
+%package module
+Summary: Dummy backlight kernel module
+
+
+%description module
+%{summary}.
+
+
+%package dom0
+Summary: Dummy backlight dom0 part
+
+
+%description dom0
+%{summary}.
+
+
+%package vm
+Summary: Dummy backlight VM part
+Requires: dummy-backlight-module
+
+
+%description vm
 %{summary}.
 
 
@@ -21,14 +46,26 @@ Requires: dkms
 %make_install
 
 
-%files
+%files module
 %defattr(-,root,root)
 /usr/src/%{module}-%{version}/Makefile
 /usr/src/%{module}-%{version}/%{module}.c
 /usr/src/%{module}-%{version}/dkms.conf
 
 
-%post
+%files dom0
+%defattr(-,root,root)
+%{_sysconfdir}/qubes-rpc/policy/qubes.SetBrightness
+%{_sysconfdir}/qubes-rpc/qubes.SetBrightness
+
+
+%files vm
+%defattr(-,root,root)
+%{_sysconfdir}/udev/rules.d/80-qubes-backlight.rules
+/usr/lib/qubes/qubes-set-backlight.sh
+
+
+%post module
 dkms add -m %{module} -v %{version} --rpm_safe_upgrade
 if [ -e /lib/modules/$(uname -r)/build/include ]; then
     dkms build -m %{module} -v %{version}
@@ -39,8 +76,10 @@ else
     echo -e "Skipping build and install stages..."
 fi
 
-%preun
+
+%preun module
 dkms remove -m %{module} -v %{version} --all --rpm_safe_upgrade
+
 
 %changelog
 @CHANGELOG@

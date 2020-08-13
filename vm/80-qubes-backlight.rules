@@ -1,0 +1,1 @@
+ACTION=="change", KERNEL=="DUMMY_BL", SUBSYSTEM=="backlight", RUN+="/usr/lib/qubes/qubes-set-backlight.sh"
