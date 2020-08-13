@@ -1,6 +1,6 @@
 #!/bin/bash
 
-brightness="$(cat /sys/class/backlight/DUMMY_BL/brightness)"
+brightness="$(cat /sys/class/backlight/dummy_backlight/brightness)"
 
 if [[ $brightness =~ ^[0-9]+$ ]] && [ "$brightness" -le 100 ]; then
     qrexec-client-vm @default qubes.SetBrightness+"$brightness"
