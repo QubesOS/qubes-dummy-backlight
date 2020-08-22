@@ -26,6 +26,8 @@ install:
 	install -m 775 dom0/qubes.SetBrightness $(DESTDIR)/etc/qubes-rpc/
 
 	# VM part
-	mkdir -p $(DESTDIR)/etc/udev/rules.d $(DESTDIR)/usr/lib/qubes
+	mkdir -p $(DESTDIR)/etc/udev/rules.d $(DESTDIR)/usr/lib/qubes $(DESTDIR)/usr/lib/systemd/system $(DESTDIR)/etc/qubes/post-install.d
+	install -m 755 vm/20-dummy-backlight.sh $(DESTDIR)/etc/qubes/post-install.d
 	install -m 664 vm/80-qubes-backlight.rules $(DESTDIR)/etc/udev/rules.d/
 	install -m 775 vm/qubes-set-backlight.sh $(DESTDIR)/usr/lib/qubes/
+	install -m 664 vm/module-load-dummy-backlight.service $(DESTDIR)/usr/lib/systemd/system

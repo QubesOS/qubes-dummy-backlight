@@ -62,8 +62,10 @@ Requires: dummy-backlight-module
 
 %files vm
 %defattr(-,root,root)
+/etc/qubes/post-install.d/20-dummy-backlight.sh
 %{_sysconfdir}/udev/rules.d/80-qubes-backlight.rules
 /usr/lib/qubes/qubes-set-backlight.sh
+/usr/lib/systemd/system/module-load-dummy-backlight.service
 
 
 %post module
@@ -80,6 +82,14 @@ fi
 
 %preun module
 dkms remove -m %{module} -v %{version} --all --rpm_safe_upgrade
+
+
+%post vm
+%systemd_post module-load-dummy-backlight.service
+
+
+%preun vm
+%systemd_postun module-load-dummy-backlight.service
 
 
 %changelog

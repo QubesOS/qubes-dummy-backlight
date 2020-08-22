@@ -1,0 +1,13 @@
+[Unit]
+Description=Dummy backlight module loader service
+ConditionPathExists=/var/run/qubes-service/dummy-backlight
+After=default.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/sbin/modprobe dummy-backlight
+ExecStop=/sbin/rmmod dummy-backlight
+
+[Install]
+WantedBy=multi-user.target
