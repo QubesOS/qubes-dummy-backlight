@@ -7,7 +7,7 @@ Summary: Dummy backlight
 
 License: GPLv2+
 Source0: %{name}-%{version}.tar.gz
-Requires: dkms
+
 
 %description
 %{summary}.
@@ -15,6 +15,7 @@ Requires: dkms
 
 %package module
 Summary: Dummy backlight kernel module
+Requires: dkms
 
 
 %description module
