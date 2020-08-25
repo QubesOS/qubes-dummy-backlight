@@ -20,9 +20,8 @@ install:
 	sed -i 's/@VERSION@/$(VERSION)/g; s/@NAME@/dummy_backlight/g' $(DESTDIR)/usr/src/dummy_backlight-$(VERSION)/dkms.conf
 
 	# dom0 part
-	mkdir -p $(DESTDIR)/etc/qubes-rpc/policy $(DESTDIR)/etc/udev/rules.d
+	mkdir -p $(DESTDIR)/etc/qubes-rpc/ $(DESTDIR)/etc/udev/rules.d
 	install -m 664 dom0/90-backlight.rules $(DESTDIR)/etc/udev/rules.d/
-	install -m 664 dom0/qubes.SetBrightness.policy $(DESTDIR)/etc/qubes-rpc/policy/qubes.SetBrightness
 	install -m 775 dom0/qubes.SetBrightness $(DESTDIR)/etc/qubes-rpc/
 
 	# VM part

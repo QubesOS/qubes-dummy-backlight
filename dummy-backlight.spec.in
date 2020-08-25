@@ -58,7 +58,6 @@ Requires: dummy-backlight-module
 %defattr(-,root,root)
 %{_sysconfdir}/udev/rules.d/90-backlight.rules
 %{_sysconfdir}/qubes-rpc/qubes.SetBrightness
-%config(noreplace) %{_sysconfdir}/qubes-rpc/policy/qubes.SetBrightness
 
 
 %files vm
