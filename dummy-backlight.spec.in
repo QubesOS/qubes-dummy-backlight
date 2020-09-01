@@ -32,7 +32,6 @@ Summary: Dummy backlight dom0 part
 
 %package vm
 Summary: Dummy backlight VM part
-Requires: dummy-backlight-module
 
 
 %description vm
