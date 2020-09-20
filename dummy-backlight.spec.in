@@ -85,7 +85,6 @@ dkms remove -m %{module} -v %{version} --all --rpm_safe_upgrade
 
 %post vm
 %systemd_post module-load-dummy-backlight.service
-systemctl enable module-load-dummy-backlight.service
 
 
 %preun vm
