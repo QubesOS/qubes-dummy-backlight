@@ -1,0 +1,8 @@
+host:
+  rpm:
+    spec:
+    - dummy-backlight.spec
+vm:
+  rpm:
+    spec:
+    - dummy-backlight.spec
