@@ -2,7 +2,7 @@
 
 Name: dummy-backlight
 Version: @VERSION@
-Release: @REL@
+Release: @REL@%{?dist}
 Summary: Dummy backlight
 
 License: GPLv2+
