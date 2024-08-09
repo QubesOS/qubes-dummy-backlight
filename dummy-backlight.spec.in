@@ -8,6 +8,7 @@ Summary: Dummy backlight
 License: GPLv2+
 Source0: %{name}-%{version}.tar.gz
 
+BuildArch: noarch
 BuildRequires: make
 
 %description
