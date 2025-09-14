@@ -72,7 +72,7 @@ Summary: Dummy backlight VM part
 
 %post module
 dkms add -m %{module} -v %{version} --rpm_safe_upgrade
-if [ -e /lib/modules/$(uname -r)/build/include ]; then
+if ! uname -r | grep -q qubes && [ -e /lib/modules/$(uname -r)/build/include ]; then
     dkms build -m %{module} -v %{version}
     dkms install -m %{module} -v %{version}
 else
