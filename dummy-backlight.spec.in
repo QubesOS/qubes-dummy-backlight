@@ -10,6 +10,7 @@ Source0: %{name}-%{version}.tar.gz
 
 BuildArch: noarch
 BuildRequires: make
+BuildRequires: systemd-rpm-macros
 
 %description
 %{summary}.
